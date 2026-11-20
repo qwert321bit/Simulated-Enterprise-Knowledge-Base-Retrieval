@@ -1,0 +1,53 @@
+enterprise-rag-assistant/
+│
+├── backend/
+│   ├── main.py
+│   ├── api/
+│   │   ├── chat.py
+│   │   └── documents.py
+│   │
+│   ├── core/
+│   │   ├── config.py
+│   │   └── llm.py
+│   │
+│   ├── rag/
+│   │   ├── loader.py
+│   │   ├── splitter.py
+│   │   ├── embedding.py
+│   │   ├── vector_store.py
+│   │   ├── retriever.py
+│   │   ├── reranker.py
+│   │   └── generator.py
+│   │
+│   ├── services/
+│   │   ├── chat_service.py
+│   │   └── document_service.py
+│   │
+│   └── schemas/
+│       ├── chat.py
+│       └── document.py
+│
+├── frontend/
+│   └── app.py
+│
+├── data/
+│   ├── uploads/
+│   └── evaluation/
+│
+├── tests/
+│   ├── test_llm.py
+│   ├── test_retriever.py
+│   └── test_rag.py
+│
+├── scripts/
+│   ├── ingest.py
+│   ├── export_chunks.py
+│   └── evaluate.py
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
+└── README.md

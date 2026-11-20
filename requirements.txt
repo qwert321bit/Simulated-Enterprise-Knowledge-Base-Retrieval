@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+python-dotenv
+openai
+sentence-transformers
+torch
+numpy
+qdrant-client
+rank-bm25
+jieba
+beautifulsoup4
+pypdf
+python-docx

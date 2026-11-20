@@ -1,0 +1,56 @@
+{
+  "dataset_name": "NebulaTech Synthetic Enterprise Knowledge Base",
+  "version": "1.0",
+  "created_date": "2026-11-15",
+  "document_count": 8,
+  "documents": [
+    {
+      "document_id": "E001",
+      "file_name": "E001_employee_dev_guide.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E002",
+      "file_name": "E002_api_specification.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E003",
+      "file_name": "E003_code_review.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E004",
+      "file_name": "E004_deployment_guide.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E005",
+      "file_name": "E005_database_policy.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E006",
+      "file_name": "E006_incident_handbook.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E007",
+      "file_name": "E007_data_security.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    },
+    {
+      "document_id": "E008",
+      "file_name": "E008_ai_service_guide.md",
+      "language": "zh",
+      "document_type": "synthetic"
+    }
+  ]
+}

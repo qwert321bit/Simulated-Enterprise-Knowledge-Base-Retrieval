@@ -1,0 +1,2288 @@
+{
+  "summary": {
+    "answerable_count": 74,
+    "unanswerable_count": 14,
+    "metrics": {
+      "向量检索": {
+        "Hit@1": 0.6486486486486487,
+        "Hit@3": 0.7972972972972973,
+        "Hit@5": 0.8513513513513513,
+        "MRR": 0.7349529599529601
+      },
+      "BM25": {
+        "Hit@1": 0.8243243243243243,
+        "Hit@3": 0.9324324324324325,
+        "Hit@5": 0.9594594594594594,
+        "MRR": 0.8832046332046333
+      },
+      "RRF 混合": {
+        "Hit@1": 0.7972972972972973,
+        "Hit@3": 0.8783783783783784,
+        "Hit@5": 0.9324324324324325,
+        "MRR": 0.8556306306306307
+      },
+      "混合 + Reranker": {
+        "Hit@1": 0.9459459459459459,
+        "Hit@3": 0.972972972972973,
+        "Hit@5": 1.0,
+        "MRR": 0.9662162162162162
+      }
+    },
+    "threshold_sweep": [
+      {
+        "threshold": 0.05,
+        "answer_rate_on_answerable": 1.0,
+        "refuse_rate_on_unanswerable": 0.5714285714285714
+      },
+      {
+        "threshold": 0.1,
+        "answer_rate_on_answerable": 1.0,
+        "refuse_rate_on_unanswerable": 0.7142857142857143
+      },
+      {
+        "threshold": 0.2,
+        "answer_rate_on_answerable": 1.0,
+        "refuse_rate_on_unanswerable": 0.9285714285714286
+      },
+      {
+        "threshold": 0.3,
+        "answer_rate_on_answerable": 0.9864864864864865,
+        "refuse_rate_on_unanswerable": 0.9285714285714286
+      },
+      {
+        "threshold": 0.4,
+        "answer_rate_on_answerable": 0.972972972972973,
+        "refuse_rate_on_unanswerable": 0.9285714285714286
+      },
+      {
+        "threshold": 0.5,
+        "answer_rate_on_answerable": 0.9594594594594594,
+        "refuse_rate_on_unanswerable": 0.9285714285714286
+      }
+    ],
+    "refusal_by_type": {
+      "off_topic": {
+        "0.05": 0.8333333333333334,
+        "0.1": 0.8333333333333334,
+        "0.2": 1.0,
+        "0.3": 1.0,
+        "0.4": 1.0,
+        "0.5": 1.0
+      },
+      "near_miss": {
+        "0.05": 0.375,
+        "0.1": 0.625,
+        "0.2": 0.875,
+        "0.3": 0.875,
+        "0.4": 0.875,
+        "0.5": 0.875
+      }
+    }
+  },
+  "questions": [
+    {
+      "id": "E001-1",
+      "question": "研发环境基线要求后端使用什么版本的 Python？",
+      "answerable": true,
+      "best_rerank_score": 0.9666982293128967,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.9667
+        },
+        {
+          "chunk_id": "E001:chunk:4",
+          "rerank_score": 0.8176
+        },
+        {
+          "chunk_id": "E001:chunk:1",
+          "rerank_score": 0.7164
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 2,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-2",
+      "question": "基线里 PostgreSQL 和 Redis 分别要求哪个大版本？",
+      "answerable": true,
+      "best_rerank_score": 0.7408773899078369,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.7409
+        },
+        {
+          "chunk_id": "upload:51cad9a1a19e4bca81c9d0a6e3d6e3b6:chunk:0",
+          "rerank_score": 0.3633
+        },
+        {
+          "chunk_id": "upload:87902d40d7324308969d1d09004d1183:chunk:0",
+          "rerank_score": 0.3365
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 3,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-3",
+      "question": "Windows 上用 PowerShell 怎么创建 Python 虚拟环境？",
+      "answerable": true,
+      "best_rerank_score": 0.9733102917671204,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:3",
+          "rerank_score": 0.9733
+        },
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.0183
+        },
+        {
+          "chunk_id": "E001:chunk:4",
+          "rerank_score": 0.0154
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-4",
+      "question": "PowerShell 拦截了虚拟环境激活脚本时该怎么办？能直接改全局执行策略吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9993388056755066,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:3",
+          "rerank_score": 0.9993
+        },
+        {
+          "chunk_id": "E001:chunk:8",
+          "rerank_score": 0.0134
+        },
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.0052
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-5",
+      "question": "怎样配置本地的环境变量文件？",
+      "answerable": true,
+      "best_rerank_score": 0.9671602249145508,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:5",
+          "rerank_score": 0.9672
+        },
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.7525
+        },
+        {
+          "chunk_id": "E008:chunk:2",
+          "rerank_score": 0.1177
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-6",
+      "question": "本地服务启动时各步骤的顺序是什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9950345754623413,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.995
+        },
+        {
+          "chunk_id": "E004:chunk:8",
+          "rerank_score": 0.0218
+        },
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.0076
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 3,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-7",
+      "question": "文档里给出的本地启动 FastAPI 的示例命令是什么？",
+      "answerable": true,
+      "best_rerank_score": 0.92003333568573,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.92
+        },
+        {
+          "chunk_id": "E001:chunk:8",
+          "rerank_score": 0.2059
+        },
+        {
+          "chunk_id": "E001:chunk:1",
+          "rerank_score": 0.0812
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 3,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-8",
+      "question": "程序里读到的 API Key 是 None，可能是什么原因？",
+      "answerable": true,
+      "best_rerank_score": 0.8877791166305542,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.8878
+        },
+        {
+          "chunk_id": "E006:chunk:6",
+          "rerank_score": 0.0547
+        },
+        {
+          "chunk_id": "E007:chunk:3",
+          "rerank_score": 0.0381
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 12,
+        "BM25": 4,
+        "RRF 混合": 2,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-9",
+      "question": "明明装过依赖却报 ModuleNotFoundError，应该怎么排查？",
+      "answerable": true,
+      "best_rerank_score": 0.9287724494934082,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.9288
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.1511
+        },
+        {
+          "chunk_id": "E004:chunk:9",
+          "rerank_score": 0.0699
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-10",
+      "question": "新人怎么确认自己的本地开发环境已经配好了？",
+      "answerable": true,
+      "best_rerank_score": 0.32366713881492615,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.3237
+        },
+        {
+          "chunk_id": "E004:chunk:2",
+          "rerank_score": 0.3232
+        },
+        {
+          "chunk_id": "E001:chunk:5",
+          "rerank_score": 0.106
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 7,
+        "RRF 混合": 3,
+        "混合 + Reranker": 4
+      }
+    },
+    {
+      "id": "E001-11",
+      "question": "依赖版本要记录在哪里？生产部署可以用 latest 标签吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9957934617996216,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.9958
+        },
+        {
+          "chunk_id": "E001:chunk:8",
+          "rerank_score": 0.0272
+        },
+        {
+          "chunk_id": "E004:chunk:2",
+          "rerank_score": 0.0137
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E001-12",
+      "question": "研发环境基线里 Qdrant 的版本是怎么规定的？",
+      "answerable": true,
+      "best_rerank_score": 0.787749707698822,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.7877
+        },
+        {
+          "chunk_id": "E001:chunk:5",
+          "rerank_score": 0.2832
+        },
+        {
+          "chunk_id": "E001:chunk:8",
+          "rerank_score": 0.2656
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 2,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-1",
+      "question": "API 的路径前缀是什么？JSON 字段用什么命名风格？",
+      "answerable": true,
+      "best_rerank_score": 0.8973193764686584,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:2",
+          "rerank_score": 0.8973
+        },
+        {
+          "chunk_id": "E002:chunk:4",
+          "rerank_score": 0.0926
+        },
+        {
+          "chunk_id": "E002:chunk:6",
+          "rerank_score": 0.0627
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-2",
+      "question": "创建知识库文档应该调用哪个接口？",
+      "answerable": true,
+      "best_rerank_score": 0.968576192855835,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:3",
+          "rerank_score": 0.9686
+        },
+        {
+          "chunk_id": "E008:chunk:8",
+          "rerank_score": 0.0467
+        },
+        {
+          "chunk_id": "E002:chunk:4",
+          "rerank_score": 0.0385
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 3,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-3",
+      "question": "资源状态冲突或重复操作应该返回什么 HTTP 状态码？",
+      "answerable": true,
+      "best_rerank_score": 0.9291365146636963,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:5",
+          "rerank_score": 0.9291
+        },
+        {
+          "chunk_id": "E002:chunk:2",
+          "rerank_score": 0.0316
+        },
+        {
+          "chunk_id": "E002:chunk:3",
+          "rerank_score": 0.016
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-4",
+      "question": "异步任务已被接收时应该返回哪个状态码？",
+      "answerable": true,
+      "best_rerank_score": 0.9605516195297241,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:5",
+          "rerank_score": 0.9606
+        },
+        {
+          "chunk_id": "E002:chunk:2",
+          "rerank_score": 0.0106
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.0031
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-5",
+      "question": "错误响应里的 request_id 起什么作用？错误信息不能泄露什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9773320555686951,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:6",
+          "rerank_score": 0.9773
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.2444
+        },
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.1923
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-6",
+      "question": "列表接口的 page_size 默认值和最大值分别是多少？",
+      "answerable": true,
+      "best_rerank_score": 0.9933773875236511,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:8",
+          "rerank_score": 0.9934
+        },
+        {
+          "chunk_id": "E002:chunk:7",
+          "rerank_score": 0.0798
+        },
+        {
+          "chunk_id": "E008:chunk:2",
+          "rerank_score": 0.0075
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-7",
+      "question": "文件上传接口要防范哪些风险？可以只看文件后缀名吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9010997414588928,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:7",
+          "rerank_score": 0.9011
+        },
+        {
+          "chunk_id": "E007:chunk:5",
+          "rerank_score": 0.8378
+        },
+        {
+          "chunk_id": "E007:chunk:7",
+          "rerank_score": 0.0797
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 4,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-8",
+      "question": "接口出现不兼容变更时应该怎么处理？",
+      "answerable": true,
+      "best_rerank_score": 0.8182112574577332,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:10",
+          "rerank_score": 0.8182
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.019
+        },
+        {
+          "chunk_id": "E004:chunk:10",
+          "rerank_score": 0.0177
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-9",
+      "question": "接口测试至少要覆盖哪些场景？",
+      "answerable": true,
+      "best_rerank_score": 0.9753587245941162,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:11",
+          "rerank_score": 0.9754
+        },
+        {
+          "chunk_id": "E002:chunk:5",
+          "rerank_score": 0.0023
+        },
+        {
+          "chunk_id": "E002:chunk:1",
+          "rerank_score": 0.0021
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-10",
+      "question": "FastAPI 项目里路由层和 service 层各负责什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9962800145149231,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:7",
+          "rerank_score": 0.9963
+        },
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.0689
+        },
+        {
+          "chunk_id": "E004:chunk:1",
+          "rerank_score": 0.012
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E002-11",
+      "question": "接口返回 429 时可以附带什么响应头？",
+      "answerable": true,
+      "best_rerank_score": 0.7264673113822937,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:9",
+          "rerank_score": 0.7265
+        },
+        {
+          "chunk_id": "E002:chunk:5",
+          "rerank_score": 0.1105
+        },
+        {
+          "chunk_id": "E006:chunk:6",
+          "rerank_score": 0.0778
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 11,
+        "BM25": 1,
+        "RRF 混合": 4,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-1",
+      "question": "main 分支可以直接 push 吗？",
+      "answerable": true,
+      "best_rerank_score": 0.8823282718658447,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.8823
+        },
+        {
+          "chunk_id": "E003:chunk:1",
+          "rerank_score": 0.083
+        },
+        {
+          "chunk_id": "E006:chunk:2",
+          "rerank_score": 0.0017
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-2",
+      "question": "新功能分支应该从哪个分支拉出来？",
+      "answerable": true,
+      "best_rerank_score": 0.2862187922000885,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.2862
+        },
+        {
+          "chunk_id": "E003:chunk:3",
+          "rerank_score": 0.0097
+        },
+        {
+          "chunk_id": "E003:chunk:1",
+          "rerank_score": 0.0029
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-3",
+      "question": "Commit Message 的建议格式是什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9964141845703125,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:3",
+          "rerank_score": 0.9964
+        },
+        {
+          "chunk_id": "E008:chunk:8",
+          "rerank_score": 0.0011
+        },
+        {
+          "chunk_id": "E006:chunk:2",
+          "rerank_score": 0.0009
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-4",
+      "question": "提交类型 chore 表示什么？给个例子。",
+      "answerable": true,
+      "best_rerank_score": 0.8018361926078796,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:3",
+          "rerank_score": 0.8018
+        },
+        {
+          "chunk_id": "E002:chunk:4",
+          "rerank_score": 0.0014
+        },
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.0014
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-5",
+      "question": "提交 PR 时描述里必须说明哪些内容？",
+      "answerable": true,
+      "best_rerank_score": 0.9360560774803162,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:4",
+          "rerank_score": 0.9361
+        },
+        {
+          "chunk_id": "E003:chunk:10",
+          "rerank_score": 0.066
+        },
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.0353
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-6",
+      "question": "代码审查里针对 RAG 项目有哪些专项检查？",
+      "answerable": true,
+      "best_rerank_score": 0.9540879130363464,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:8",
+          "rerank_score": 0.9541
+        },
+        {
+          "chunk_id": "E003:chunk:6",
+          "rerank_score": 0.0613
+        },
+        {
+          "chunk_id": "E003:chunk:7",
+          "rerank_score": 0.0464
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-7",
+      "question": "合并前至少要跑哪些自动化检查？CI 失败了能跳过吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9966013431549072,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:9",
+          "rerank_score": 0.9966
+        },
+        {
+          "chunk_id": "E003:chunk:10",
+          "rerank_score": 0.0468
+        },
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.0166
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-8",
+      "question": "紧急修复完成后还要做什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9461706280708313,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:11",
+          "rerank_score": 0.9462
+        },
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.024
+        },
+        {
+          "chunk_id": "E007:chunk:10",
+          "rerank_score": 0.0125
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E003-9",
+      "question": "代码审查流程里合并负责人的职责是什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9852956533432007,
+      "top3": [
+        {
+          "chunk_id": "E003:chunk:10",
+          "rerank_score": 0.9853
+        },
+        {
+          "chunk_id": "E003:chunk:1",
+          "rerank_score": 0.1421
+        },
+        {
+          "chunk_id": "E003:chunk:9",
+          "rerank_score": 0.0249
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-1",
+      "question": "Docker Compose 里 API 容器要连数据库，主机名该写什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9753684997558594,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:1",
+          "rerank_score": 0.9754
+        },
+        {
+          "chunk_id": "E006:chunk:4",
+          "rerank_score": 0.7439
+        },
+        {
+          "chunk_id": "E004:chunk:9",
+          "rerank_score": 0.5524
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-2",
+      "question": "执行 docker compose down -v 会有什么后果？",
+      "answerable": true,
+      "best_rerank_score": 0.9958299994468689,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:7",
+          "rerank_score": 0.9958
+        },
+        {
+          "chunk_id": "E006:chunk:7",
+          "rerank_score": 0.0388
+        },
+        {
+          "chunk_id": "E004:chunk:4",
+          "rerank_score": 0.0147
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 9,
+        "BM25": 1,
+        "RRF 混合": 4,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-3",
+      "question": "Docker 部署前需要做哪些检查？",
+      "answerable": true,
+      "best_rerank_score": 0.9932398796081543,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:2",
+          "rerank_score": 0.9932
+        },
+        {
+          "chunk_id": "E004:chunk:8",
+          "rerank_score": 0.9807
+        },
+        {
+          "chunk_id": "E004:chunk:6",
+          "rerank_score": 0.9484
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-4",
+      "question": "部署完成后怎么做健康检查和验收？",
+      "answerable": true,
+      "best_rerank_score": 0.943638026714325,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:8",
+          "rerank_score": 0.9436
+        },
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.2015
+        },
+        {
+          "chunk_id": "E004:chunk:10",
+          "rerank_score": 0.0508
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 3,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-5",
+      "question": "API 容器一直反复重启，常见原因有哪些？",
+      "answerable": true,
+      "best_rerank_score": 0.9847217202186584,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:9",
+          "rerank_score": 0.9847
+        },
+        {
+          "chunk_id": "E006:chunk:7",
+          "rerank_score": 0.572
+        },
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.1314
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": null,
+        "BM25": 1,
+        "RRF 混合": 10,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-6",
+      "question": "容器已经启动但外部访问不到接口，可能是什么原因？",
+      "answerable": true,
+      "best_rerank_score": 0.7229254245758057,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:9",
+          "rerank_score": 0.7229
+        },
+        {
+          "chunk_id": "E006:chunk:4",
+          "rerank_score": 0.0776
+        },
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.077
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": null,
+        "BM25": 1,
+        "RRF 混合": 12,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-7",
+      "question": "新版本部署失败后怎么回滚？",
+      "answerable": true,
+      "best_rerank_score": 0.9121716022491455,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:10",
+          "rerank_score": 0.9122
+        },
+        {
+          "chunk_id": "E006:chunk:7",
+          "rerank_score": 0.2464
+        },
+        {
+          "chunk_id": "E004:chunk:8",
+          "rerank_score": 0.0092
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": null,
+        "BM25": 1,
+        "RRF 混合": 8,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-8",
+      "question": "部署日志里禁止记录哪些信息？",
+      "answerable": true,
+      "best_rerank_score": 0.9876816272735596,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:11",
+          "rerank_score": 0.9877
+        },
+        {
+          "chunk_id": "E007:chunk:4",
+          "rerank_score": 0.7946
+        },
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.1027
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E004-9",
+      "question": "演示环境的 Docker Compose 由哪几个服务组成？",
+      "answerable": true,
+      "best_rerank_score": 0.9871237277984619,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:1",
+          "rerank_score": 0.9871
+        },
+        {
+          "chunk_id": "E004:chunk:4",
+          "rerank_score": 0.3147
+        },
+        {
+          "chunk_id": "51cad9a1a19e4bca81c9d0a6e3d6e3b6_test_docx:chunk:0",
+          "rerank_score": 0.1013
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-1",
+      "question": "Redis 可以当作永久数据存储吗？",
+      "answerable": true,
+      "best_rerank_score": 0.994162380695343,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:5",
+          "rerank_score": 0.9942
+        },
+        {
+          "chunk_id": "E005:chunk:1",
+          "rerank_score": 0.0624
+        },
+        {
+          "chunk_id": "E004:chunk:4",
+          "rerank_score": 0.0566
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-2",
+      "question": "Qdrant 里每个 Point 至少要保存哪些字段？",
+      "answerable": true,
+      "best_rerank_score": 0.9986275434494019,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:6",
+          "rerank_score": 0.9986
+        },
+        {
+          "chunk_id": "E006:chunk:5",
+          "rerank_score": 0.1239
+        },
+        {
+          "chunk_id": "E001:chunk:5",
+          "rerank_score": 0.0609
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-3",
+      "question": "用户删除一份文档后，向量库里的相关数据要怎么处理？",
+      "answerable": true,
+      "best_rerank_score": 0.4567953944206238,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:6",
+          "rerank_score": 0.4568
+        },
+        {
+          "chunk_id": "E007:chunk:6",
+          "rerank_score": 0.4442
+        },
+        {
+          "chunk_id": "E007:chunk:9",
+          "rerank_score": 0.2719
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 2,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-4",
+      "question": "换了新的 Embedding 模型后，旧向量还能和新向量放在一起用吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9370375871658325,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:6",
+          "rerank_score": 0.937
+        },
+        {
+          "chunk_id": "E006:chunk:5",
+          "rerank_score": 0.907
+        },
+        {
+          "chunk_id": "E008:chunk:5",
+          "rerank_score": 0.0018
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-5",
+      "question": "数据库事务里能不能调用外部大模型 API？",
+      "answerable": true,
+      "best_rerank_score": 0.987467885017395,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:4",
+          "rerank_score": 0.9875
+        },
+        {
+          "chunk_id": "E008:chunk:11",
+          "rerank_score": 0.313
+        },
+        {
+          "chunk_id": "E008:chunk:5",
+          "rerank_score": 0.3124
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 11,
+        "BM25": 1,
+        "RRF 混合": 4,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-6",
+      "question": "数据库表名和字段名应该使用什么命名风格？",
+      "answerable": true,
+      "best_rerank_score": 0.9150010347366333,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:2",
+          "rerank_score": 0.915
+        },
+        {
+          "chunk_id": "E002:chunk:2",
+          "rerank_score": 0.0127
+        },
+        {
+          "chunk_id": "E005:chunk:0",
+          "rerank_score": 0.008
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-7",
+      "question": "数据库查询变慢时应该检查哪些方面？能靠无限加连接数解决吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9985853433609009,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:8",
+          "rerank_score": 0.9986
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.3467
+        },
+        {
+          "chunk_id": "E006:chunk:4",
+          "rerank_score": 0.133
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E005-8",
+      "question": "PostgreSQL 在项目里主要用来存什么数据？",
+      "answerable": true,
+      "best_rerank_score": 0.5415229797363281,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:1",
+          "rerank_score": 0.5415
+        },
+        {
+          "chunk_id": "E004:chunk:4",
+          "rerank_score": 0.1415
+        },
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.0419
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 4,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-1",
+      "question": "P1 级故障指什么情况，应该怎么响应？",
+      "answerable": true,
+      "best_rerank_score": 0.6263756155967712,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:2",
+          "rerank_score": 0.6264
+        },
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.0036
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.0023
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 2,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-2",
+      "question": "接口请求超时时，重试策略应该怎么设计？",
+      "answerable": true,
+      "best_rerank_score": 0.9646046161651611,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:6",
+          "rerank_score": 0.9646
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.8853
+        },
+        {
+          "chunk_id": "E006:chunk:6",
+          "rerank_score": 0.1821
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 2,
+        "RRF 混合": 2,
+        "混合 + Reranker": 2
+      }
+    },
+    {
+      "id": "E006-3",
+      "question": "数据库日志出现 too many connections 说明什么问题？",
+      "answerable": true,
+      "best_rerank_score": 0.8208404779434204,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:4",
+          "rerank_score": 0.8208
+        },
+        {
+          "chunk_id": "E005:chunk:8",
+          "rerank_score": 0.0575
+        },
+        {
+          "chunk_id": "E007:chunk:4",
+          "rerank_score": 0.0286
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-4",
+      "question": "Qdrant 检索返回空结果时怎么排查？",
+      "answerable": true,
+      "best_rerank_score": 0.9992244243621826,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:5",
+          "rerank_score": 0.9992
+        },
+        {
+          "chunk_id": "E006:chunk:7",
+          "rerank_score": 0.4718
+        },
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.3711
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-5",
+      "question": "调用大模型 API 返回 401 应该检查什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9885574579238892,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:6",
+          "rerank_score": 0.9886
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.9879
+        },
+        {
+          "chunk_id": "E008:chunk:6",
+          "rerank_score": 0.4485
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-6",
+      "question": "故障复盘至少要记录哪些内容？",
+      "answerable": true,
+      "best_rerank_score": 0.988893449306488,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:9",
+          "rerank_score": 0.9889
+        },
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.768
+        },
+        {
+          "chunk_id": "E004:chunk:11",
+          "rerank_score": 0.1689
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 4,
+        "BM25": 1,
+        "RRF 混合": 2,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-7",
+      "question": "处理故障时的总体原则和先后顺序是什么？",
+      "answerable": true,
+      "best_rerank_score": 0.8310478925704956,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.831
+        },
+        {
+          "chunk_id": "E006:chunk:2",
+          "rerank_score": 0.1178
+        },
+        {
+          "chunk_id": "E006:chunk:9",
+          "rerank_score": 0.0117
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E006-8",
+      "question": "容器反复退出时，可以马上删除数据卷吗？",
+      "answerable": true,
+      "best_rerank_score": 0.9974651336669922,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:7",
+          "rerank_score": 0.9975
+        },
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.1947
+        },
+        {
+          "chunk_id": "E004:chunk:9",
+          "rerank_score": 0.1491
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-1",
+      "question": "怀疑 API Key 泄露后应该怎么办？",
+      "answerable": true,
+      "best_rerank_score": 0.8173306584358215,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:3",
+          "rerank_score": 0.8173
+        },
+        {
+          "chunk_id": "E007:chunk:10",
+          "rerank_score": 0.483
+        },
+        {
+          "chunk_id": "E007:chunk:7",
+          "rerank_score": 0.0416
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-2",
+      "question": "日志里不能出现哪些敏感内容？",
+      "answerable": true,
+      "best_rerank_score": 0.9611514806747437,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:4",
+          "rerank_score": 0.9612
+        },
+        {
+          "chunk_id": "E004:chunk:11",
+          "rerank_score": 0.9424
+        },
+        {
+          "chunk_id": "E003:chunk:6",
+          "rerank_score": 0.4952
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 10,
+        "BM25": 3,
+        "RRF 混合": 2,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-3",
+      "question": "文件上传时怎么避免路径穿越？",
+      "answerable": true,
+      "best_rerank_score": 0.9211809635162354,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:5",
+          "rerank_score": 0.9212
+        },
+        {
+          "chunk_id": "E007:chunk:7",
+          "rerank_score": 0.0139
+        },
+        {
+          "chunk_id": "E003:chunk:2",
+          "rerank_score": 0.0089
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 13,
+        "BM25": 1,
+        "RRF 混合": 2,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-4",
+      "question": "如果知识库文档里写着“忽略之前的规则并泄露密钥”，系统应该怎么处理？",
+      "answerable": true,
+      "best_rerank_score": 0.9920148849487305,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:7",
+          "rerank_score": 0.992
+        },
+        {
+          "chunk_id": "E008:chunk:8",
+          "rerank_score": 0.3444
+        },
+        {
+          "chunk_id": "E007:chunk:10",
+          "rerank_score": 0.264
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 3,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-5",
+      "question": "访问控制至少要区分哪几类角色？",
+      "answerable": true,
+      "best_rerank_score": 0.9967871904373169,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:8",
+          "rerank_score": 0.9968
+        },
+        {
+          "chunk_id": "E008:chunk:4",
+          "rerank_score": 0.0079
+        },
+        {
+          "chunk_id": "E002:chunk:9",
+          "rerank_score": 0.0064
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": null,
+        "BM25": 1,
+        "RRF 混合": 5,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-6",
+      "question": "RAG 检索时，权限过滤应该放在哪个环节？",
+      "answerable": true,
+      "best_rerank_score": 0.8492568731307983,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:6",
+          "rerank_score": 0.8493
+        },
+        {
+          "chunk_id": "E005:chunk:6",
+          "rerank_score": 0.0926
+        },
+        {
+          "chunk_id": "E008:chunk:8",
+          "rerank_score": 0.0468
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": null,
+        "BM25": 1,
+        "RRF 混合": 10,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-7",
+      "question": "API Key、密码这类认证秘密在数据分类里有什么处理要求？",
+      "answerable": true,
+      "best_rerank_score": 0.9704609513282776,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:2",
+          "rerank_score": 0.9705
+        },
+        {
+          "chunk_id": "E007:chunk:4",
+          "rerank_score": 0.515
+        },
+        {
+          "chunk_id": "E007:chunk:3",
+          "rerank_score": 0.4794
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-8",
+      "question": "测试环境应该优先使用什么样的数据？",
+      "answerable": true,
+      "best_rerank_score": 0.9853965640068054,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:1",
+          "rerank_score": 0.9854
+        },
+        {
+          "chunk_id": "E001:chunk:5",
+          "rerank_score": 0.1064
+        },
+        {
+          "chunk_id": "upload:36b40f157ec74250ad0146b6af2195df:chunk:1",
+          "rerank_score": 0.0609
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E007-9",
+      "question": "怎样避免把密码或密钥提交到 Git 仓库？",
+      "answerable": true,
+      "best_rerank_score": 0.5807263851165771,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:2",
+          "rerank_score": 0.5807
+        },
+        {
+          "chunk_id": "E003:chunk:6",
+          "rerank_score": 0.0727
+        },
+        {
+          "chunk_id": "E007:chunk:2",
+          "rerank_score": 0.0423
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 7,
+        "RRF 混合": 1,
+        "混合 + Reranker": 4
+      }
+    },
+    {
+      "id": "E008-1",
+      "question": "大模型接入的配置示例里，超时时间和最大重试次数是多少？",
+      "answerable": true,
+      "best_rerank_score": 0.9734052419662476,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.9734
+        },
+        {
+          "chunk_id": "E008:chunk:2",
+          "rerank_score": 0.9171
+        },
+        {
+          "chunk_id": "E008:chunk:6",
+          "rerank_score": 0.9125
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 4,
+        "BM25": 14,
+        "RRF 混合": 8,
+        "混合 + Reranker": 2
+      }
+    },
+    {
+      "id": "E008-2",
+      "question": "多轮对话中怎么避免历史消息越积越长？",
+      "answerable": true,
+      "best_rerank_score": 0.8901939988136292,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:4",
+          "rerank_score": 0.8902
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.0067
+        },
+        {
+          "chunk_id": "E005:chunk:4",
+          "rerank_score": 0.0022
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E008-3",
+      "question": "使用流式输出时要注意什么？",
+      "answerable": true,
+      "best_rerank_score": 0.9176560640335083,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:5",
+          "rerank_score": 0.9177
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.0162
+        },
+        {
+          "chunk_id": "E005:chunk:6",
+          "rerank_score": 0.0141
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E008-4",
+      "question": "哪些错误不应该盲目重试？",
+      "answerable": true,
+      "best_rerank_score": 0.9786732792854309,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:6",
+          "rerank_score": 0.9787
+        },
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.3334
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.0458
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E008-5",
+      "question": "资料里没有答案时，RAG 的 Prompt 应该要求模型怎么回答？",
+      "answerable": true,
+      "best_rerank_score": 0.9986771941184998,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:8",
+          "rerank_score": 0.9987
+        },
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.148
+        },
+        {
+          "chunk_id": "E007:chunk:7",
+          "rerank_score": 0.0257
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E008-6",
+      "question": "模型服务不可用时，API 应该如何返回？",
+      "answerable": true,
+      "best_rerank_score": 0.9921770691871643,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.9922
+        },
+        {
+          "chunk_id": "E006:chunk:6",
+          "rerank_score": 0.9463
+        },
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.192
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 2,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E008-7",
+      "question": "大模型调用需要监控哪些延迟指标？",
+      "answerable": true,
+      "best_rerank_score": 0.9928739070892334,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:10",
+          "rerank_score": 0.9929
+        },
+        {
+          "chunk_id": "E008:chunk:6",
+          "rerank_score": 0.3877
+        },
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.2568
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 1,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "E008-8",
+      "question": "遇到 Token 超限错误应该怎么处理？",
+      "answerable": true,
+      "best_rerank_score": 0.5391102433204651,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:9",
+          "rerank_score": 0.5391
+        },
+        {
+          "chunk_id": "E002:chunk:5",
+          "rerank_score": 0.0862
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.0527
+        }
+      ],
+      "first_hit_rank": {
+        "向量检索": 4,
+        "BM25": 1,
+        "RRF 混合": 1,
+        "混合 + Reranker": 1
+      }
+    },
+    {
+      "id": "N-1",
+      "question": "公司食堂几点开门？",
+      "answerable": false,
+      "best_rerank_score": 0.00018705577531363815,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:2",
+          "rerank_score": 0.0002
+        },
+        {
+          "chunk_id": "E001:chunk:0",
+          "rerank_score": 0.0001
+        },
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "N-2",
+      "question": "星云科技的年假制度是怎么规定的？",
+      "answerable": false,
+      "best_rerank_score": 0.025081390514969826,
+      "top3": [
+        {
+          "chunk_id": "E007:chunk:2",
+          "rerank_score": 0.0251
+        },
+        {
+          "chunk_id": "E001:chunk:0",
+          "rerank_score": 0.0099
+        },
+        {
+          "chunk_id": "E005:chunk:7",
+          "rerank_score": 0.0088
+        }
+      ]
+    },
+    {
+      "id": "N-3",
+      "question": "星云科技 2025 年的营收是多少？",
+      "answerable": false,
+      "best_rerank_score": 0.02954656444489956,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.0295
+        },
+        {
+          "chunk_id": "E001:chunk:0",
+          "rerank_score": 0.0246
+        },
+        {
+          "chunk_id": "E002:chunk:0",
+          "rerank_score": 0.022
+        }
+      ]
+    },
+    {
+      "id": "N-4",
+      "question": "怎样用 Python 实现快速排序？",
+      "answerable": false,
+      "best_rerank_score": 0.022554868832230568,
+      "top3": [
+        {
+          "chunk_id": "E002:chunk:8",
+          "rerank_score": 0.0226
+        },
+        {
+          "chunk_id": "E008:chunk:5",
+          "rerank_score": 0.0088
+        },
+        {
+          "chunk_id": "E001:chunk:7",
+          "rerank_score": 0.0045
+        }
+      ]
+    },
+    {
+      "id": "N-5",
+      "question": "今天北京的天气怎么样？",
+      "answerable": false,
+      "best_rerank_score": 8.062731649260968e-05,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:3",
+          "rerank_score": 0.0001
+        },
+        {
+          "chunk_id": "E008:chunk:8",
+          "rerank_score": 0.0
+        },
+        {
+          "chunk_id": "E008:chunk:2",
+          "rerank_score": 0.0
+        }
+      ]
+    },
+    {
+      "id": "N-6",
+      "question": "星云科技的总部地址在哪里？",
+      "answerable": false,
+      "best_rerank_score": 0.1523522436618805,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:0",
+          "rerank_score": 0.1524
+        },
+        {
+          "chunk_id": "E001:chunk:6",
+          "rerank_score": 0.0202
+        },
+        {
+          "chunk_id": "E002:chunk:0",
+          "rerank_score": 0.0161
+        }
+      ]
+    },
+    {
+      "id": "N-7",
+      "question": "Redis 缓存键的默认 TTL 具体是多少秒？",
+      "answerable": false,
+      "best_rerank_score": 0.1509108543395996,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:5",
+          "rerank_score": 0.1509
+        },
+        {
+          "chunk_id": "87902d40d7324308969d1d09004d1183_test_txt:chunk:0",
+          "rerank_score": 0.0299
+        },
+        {
+          "chunk_id": "upload:87902d40d7324308969d1d09004d1183:chunk:0",
+          "rerank_score": 0.0266
+        }
+      ]
+    },
+    {
+      "id": "N-8",
+      "question": "星云科技要求使用哪个具体版本的 Qdrant 镜像？",
+      "answerable": false,
+      "best_rerank_score": 0.6354630589485168,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.6355
+        },
+        {
+          "chunk_id": "E005:chunk:0",
+          "rerank_score": 0.4947
+        },
+        {
+          "chunk_id": "E001:chunk:8",
+          "rerank_score": 0.2749
+        }
+      ]
+    },
+    {
+      "id": "N-9",
+      "question": "Kubernetes 部署时 Pod 的 CPU 和内存限制应该配置多少？",
+      "answerable": false,
+      "best_rerank_score": 0.004044276662170887,
+      "top3": [
+        {
+          "chunk_id": "E004:chunk:4",
+          "rerank_score": 0.004
+        },
+        {
+          "chunk_id": "E001:chunk:5",
+          "rerank_score": 0.0016
+        },
+        {
+          "chunk_id": "E004:chunk:6",
+          "rerank_score": 0.0016
+        }
+      ]
+    },
+    {
+      "id": "N-10",
+      "question": "P1 级故障要求在多少分钟内响应？",
+      "answerable": false,
+      "best_rerank_score": 0.03895184025168419,
+      "top3": [
+        {
+          "chunk_id": "E006:chunk:2",
+          "rerank_score": 0.039
+        },
+        {
+          "chunk_id": "E006:chunk:1",
+          "rerank_score": 0.0009
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.0008
+        }
+      ]
+    },
+    {
+      "id": "N-11",
+      "question": "项目使用哪一个具体的 Embedding 模型？",
+      "answerable": false,
+      "best_rerank_score": 0.07783002406358719,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:6",
+          "rerank_score": 0.0778
+        },
+        {
+          "chunk_id": "E006:chunk:5",
+          "rerank_score": 0.0563
+        },
+        {
+          "chunk_id": "E008:chunk:1",
+          "rerank_score": 0.0331
+        }
+      ]
+    },
+    {
+      "id": "N-12",
+      "question": "API 限流的具体阈值是每分钟多少次请求？",
+      "answerable": false,
+      "best_rerank_score": 0.09597600251436234,
+      "top3": [
+        {
+          "chunk_id": "E008:chunk:6",
+          "rerank_score": 0.096
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.0955
+        },
+        {
+          "chunk_id": "E002:chunk:5",
+          "rerank_score": 0.0525
+        }
+      ]
+    },
+    {
+      "id": "N-13",
+      "question": "数据库连接池的最大连接数应该设置为多少？",
+      "answerable": false,
+      "best_rerank_score": 0.13242602348327637,
+      "top3": [
+        {
+          "chunk_id": "E005:chunk:8",
+          "rerank_score": 0.1324
+        },
+        {
+          "chunk_id": "E006:chunk:4",
+          "rerank_score": 0.0204
+        },
+        {
+          "chunk_id": "E006:chunk:3",
+          "rerank_score": 0.0151
+        }
+      ]
+    },
+    {
+      "id": "N-14",
+      "question": "生产环境 PostgreSQL 管理员账号的密码是什么？",
+      "answerable": false,
+      "best_rerank_score": 0.01942244917154312,
+      "top3": [
+        {
+          "chunk_id": "E001:chunk:1",
+          "rerank_score": 0.0194
+        },
+        {
+          "chunk_id": "E001:chunk:2",
+          "rerank_score": 0.002
+        },
+        {
+          "chunk_id": "E005:chunk:2",
+          "rerank_score": 0.0009
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+
+[
+  {
+    "question": "星云科技的研发环境标准 Python 版本是什么？",
+    "relevant_chunk_ids": ["E001:chunk:2"],
+    "category": "python"
+  },
+  {
+    "question": "星云科技的 API 统一使用什么路径前缀和数据交换格式？",
+    "relevant_chunk_ids": ["E002:chunk:2"],
+    "category": "api"
+  },
+  {
+    "question": "FastAPI 文件上传接口需要进行哪些安全检查？",
+    "relevant_chunk_ids": ["E002:chunk:7"],
+    "category": "api_security"
+  },
+  {
+    "question": "代码提交 Pull Request 时必须说明哪些内容？",
+    "relevant_chunk_ids": ["E003:chunk:4"],
+    "category": "code_review"
+  },
+  {
+    "question": "星云科技的 main 分支有哪些管理规则？",
+    "relevant_chunk_ids": ["E003:chunk:2"],
+    "category": "git"
+  },
+  {
+    "question": "Docker Compose 网络中，API 容器连接 PostgreSQL 时应该使用什么主机名？",
+    "relevant_chunk_ids": ["E004:chunk:1"],
+    "category": "docker"
+  },
+  {
+    "question": "星云科技分别使用 PostgreSQL、Redis 和 Qdrant 存储什么数据？",
+    "relevant_chunk_ids": ["E005:chunk:1"],
+    "category": "database"
+  },
+  {
+    "question": "更新或删除知识库文档时，应该如何处理 Qdrant 中的旧向量？",
+    "relevant_chunk_ids": ["E005:chunk:6"],
+    "category": "vector_database"
+  },
+  {
+    "question": "Qdrant 检索返回空结果时，应该从哪些方面排查？",
+    "relevant_chunk_ids": ["E006:chunk:5"],
+    "category": "troubleshooting"
+  },
+  {
+    "question": "调用大模型 API 遇到 401、403、429 或 5xx 错误时应该如何处理？",
+    "relevant_chunk_ids": ["E006:chunk:6"],
+    "category": "llm_api"
+  },
+  {
+    "question": "如果上传的知识库文档包含 Prompt Injection 指令，系统应该如何防护？",
+    "relevant_chunk_ids": ["E007:chunk:8"],
+    "category": "security"
+  },
+  {
+    "question": "使用 OpenAI SDK 进行流式输出时，需要注意哪些问题？",
+    "relevant_chunk_ids": ["E008:chunk:5"],
+    "category": "llm_streaming"
+  },
+  {
+    "question": "星云科技内部测试服务器的代号和默认端口分别是什么？",
+    "relevant_chunk_ids": ["36b40f157ec74250ad0146b6af2195df_test:chunk:0"],
+    "category": "upload_md"
+  },
+  {
+    "question": "PDF 测试服务器的代号和默认服务端口分别是什么？",
+    "relevant_chunk_ids": ["452d201f40104f878ffb4fdd0f220844_test:page:1:chunk:0"],
+    "category": "upload_pdf"
+  },
+  {
+    "question": "DOCX 测试服务器的代号、默认端口和数据库版本分别是什么？",
+    "relevant_chunk_ids": ["51cad9a1a19e4bca81c9d0a6e3d6e3b6_test_docx:chunk:0"],
+    "category": "upload_docx"
+  },
+  {
+    "question": "TXT 测试环境的日志保留时间是多久？",
+    "relevant_chunk_ids": ["87902d40d7324308969d1d09004d1183_test_txt:chunk:0"],
+    "category": "upload_txt"
+  }
+]
+

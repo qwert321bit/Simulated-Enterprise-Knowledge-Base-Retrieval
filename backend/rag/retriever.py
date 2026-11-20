@@ -1,100 +1,144 @@
-
 """
-RAG Retriever
-负责将用户问题转换为向量，并从 Qdrant 检索相关知识。
+混合检索：BGE-M3 向量检索 + BM25 关键词检索 -> RRF 融合 -> Reranker 重排。
+
+HybridRetriever 构造后索引不可变；有新文档时由 DocumentService 重新构造并替换。
 """
 
-from typing import List, Dict, Any
+from __future__ import annotations
 
-from embedding import EmbeddingModel
-from vector_store import QdrantVectorStore
+import logging
+import re
+from typing import Any
+
+import jieba
+from rank_bm25 import BM25Okapi
+
+from backend.core.config import settings
+from backend.rag.embedding import EmbeddingModel
+from backend.rag.loader import Document
+from backend.rag.reranker import Reranker
+from backend.rag.vector_store import QdrantVectorStore
+
+logger = logging.getLogger(__name__)
 
 
-class Retriever:
+def tokenize(text: str) -> list[str]:
+    """中文用 jieba，英文/数字/技术名词用正则保留（如 python3.11、c++）。"""
+    tokens = []
 
+    for word in jieba.lcut(text.lower()):
+        word = word.strip()
+        if not word:
+            continue
+        is_ascii_term = re.fullmatch(r"[a-z0-9_.+#/-]+", word) and re.search(r"[a-z0-9]", word)
+
+        # 纯标点（".", "-", "/"）不是检索词，会给每个含标点的 Chunk 加噪声分
+        if is_ascii_term or re.search(r"[\u4e00-\u9fff]", word):
+            tokens.append(word)
+
+    return tokens
+
+
+class HybridRetriever:
     def __init__(
         self,
+        chunks: list[Document],
         embedding_model: EmbeddingModel,
         vector_store: QdrantVectorStore,
+        reranker: Reranker,
+        rrf_k: int | None = None,
     ):
+        self.chunks = list(chunks)
         self.embedding_model = embedding_model
         self.vector_store = vector_store
+        self.reranker = reranker
+        self.rrf_k = rrf_k or settings.rrf_k
+
+        self.chunk_map = {chunk.id: chunk for chunk in self.chunks}
+
+        # 知识库为空时 BM25Okapi 会除零，此时只走向量检索
+        corpus = [tokenize(chunk.content) for chunk in self.chunks]
+        self.bm25 = BM25Okapi(corpus) if any(corpus) else None
+
+        logger.info("BM25 索引建立成功，共 %d 个 Chunk", len(self.chunks))
+
+    def _bm25_search(self, query: str, k: int) -> list[str]:
+        """返回 BM25 得分 > 0 的前 k 个 chunk_id。"""
+        if self.bm25 is None:
+            return []
+
+        tokens = tokenize(query)
+        if not tokens:
+            return []
+
+        scores = self.bm25.get_scores(tokens)
+        ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:k]
+
+        return [self.chunks[i].id for i in ranked if scores[i] > 0]
 
     def retrieve(
         self,
         query: str,
-        top_k: int = 5,
-    ) -> List[Dict[str, Any]]:
-        """
-        根据用户问题检索相关 Chunk。
-        """
-
+        top_k: int | None = None,
+        candidate_k: int | None = None,
+    ) -> list[dict[str, Any]]:
         if not query or not query.strip():
-            raise ValueError("用户问题不能为空")
+            raise ValueError("查询内容不能为空")
 
-        # 1. 将问题转换为向量
-        query_vector = self.embedding_model.encode_query(
-            query
-        )
+        top_k = top_k or settings.default_top_k
+        candidate_k = max(candidate_k or settings.candidate_k, top_k)
 
-        # 2. 调用 Qdrant 进行相似度搜索
-        results = self.vector_store.search(
-            query_vector=query_vector,
-            top_k=top_k,
-        )
+        # 1. 向量检索
+        query_vector = self.embedding_model.encode_query(query)
+        vector_results = self.vector_store.search(query_vector, top_k=candidate_k)
+        vector_by_id = {r["chunk_id"]: r for r in vector_results if r["chunk_id"]}
 
-        return results
+        # 2. BM25 检索
+        bm25_ids = self._bm25_search(query, candidate_k)
 
+        # 3. RRF 融合
+        fused: dict[str, float] = {}
+        details: dict[str, dict] = {}
 
-if __name__ == "__main__":
+        for rank, result in enumerate(vector_results, start=1):
+            chunk_id = result["chunk_id"]
+            if not chunk_id:
+                continue
+            fused[chunk_id] = fused.get(chunk_id, 0) + 1 / (self.rrf_k + rank)
+            details.setdefault(chunk_id, {}).update(
+                vector_score=result["score"], vector_rank=rank
+            )
 
-    print("=" * 50)
-    print("RAG Retriever 模块测试")
-    print("=" * 50)
+        for rank, chunk_id in enumerate(bm25_ids, start=1):
+            fused[chunk_id] = fused.get(chunk_id, 0) + 1 / (self.rrf_k + rank)
+            details.setdefault(chunk_id, {})["bm25_rank"] = rank
 
-    embedding_model = EmbeddingModel(
-        model_name="BAAI/bge-m3",
-        device="auto",
-        batch_size=8,
-    )
+        ranked = sorted(fused.items(), key=lambda x: x[1], reverse=True)[:candidate_k]
 
-    vector_store = QdrantVectorStore(
-        dimension=embedding_model.dimension
-    )
+        # 4. 组装 Reranker 候选
+        candidates = []
 
-    try:
-        retriever = Retriever(
-            embedding_model=embedding_model,
-            vector_store=vector_store,
-        )
+        for chunk_id, rrf_score in ranked:
+            chunk = self.chunk_map.get(chunk_id)
 
-        query = "星云科技的研发环境需要安装什么 Python 版本？"
+            if chunk is not None:
+                content, metadata = chunk.content, chunk.metadata
+            elif chunk_id in vector_by_id:
+                # Qdrant 里有、本地索引里没有的记录
+                content = vector_by_id[chunk_id]["content"]
+                metadata = vector_by_id[chunk_id]["metadata"]
+            else:
+                continue
 
-        print(f"\n用户问题：{query}")
+            candidates.append(
+                {
+                    "chunk_id": chunk_id,
+                    "content": content,
+                    "metadata": metadata,
+                    "rrf_score": rrf_score,
+                    "details": details[chunk_id],
+                }
+            )
 
-        results = retriever.retrieve(
-            query=query,
-            top_k=3,
-        )
-
-        print("\n检索结果：")
-
-        for index, result in enumerate(
-            results,
-            start=1,
-        ):
-            metadata = result["metadata"]
-
-            print("\n" + "-" * 50)
-            print(f"排名：{index}")
-            print(f"相似度：{result['score']:.4f}")
-            print(f"Chunk ID：{result['chunk_id']}")
-            print(f"文档标题：{metadata.get('title', '未知')}")
-            print(f"来源：{metadata.get('source', '未知')}")
-            print(f"章节：{metadata.get('heading', '未知')}")
-            print(f"内容：\n{result['content'][:500]}")
-
-        print("\nRetriever 测试完成！")
-
-    finally:
-        vector_store.close()
+        # 5. 重排序
+        return self.reranker.rerank(query=query, candidates=candidates, top_k=top_k)

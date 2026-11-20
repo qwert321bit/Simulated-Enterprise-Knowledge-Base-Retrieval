@@ -1,0 +1,6 @@
+{"id": "U-1", "question": "PDF 测试服务器的默认服务端口是多少？", "answerable": true, "type": "upload_fixture", "gold_snippets": ["默认服务端口为 9527"], "reference_answer": "9527。"}
+{"id": "U-2", "question": "DOCX 测试服务器的代号是什么？", "answerable": true, "type": "upload_fixture", "gold_snippets": ["DOCX 测试服务器代号为 DOCX-NEBULA-2026"], "reference_answer": "DOCX-NEBULA-2026。"}
+{"id": "U-3", "question": "TXT 测试服务器的默认端口是多少？", "answerable": true, "type": "upload_fixture", "gold_snippets": ["测试服务器的默认端口为 9741"], "reference_answer": "9741。"}
+{"id": "U-4", "question": "内部测试服务器 NEBULA-TEST-2026 的默认端口是多少？", "answerable": true, "type": "upload_fixture", "gold_snippets": ["测试服务器的默认端口是 8765"], "reference_answer": "8765。"}
+{"id": "U-5", "question": "DOCX 测试日志的保留时间是多少天？", "answerable": true, "type": "upload_fixture", "gold_snippets": ["测试日志的保留时间为 21 天"], "reference_answer": "21 天。"}
+{"id": "U-6", "question": "TXT 测试日志保留多久？", "answerable": true, "type": "upload_fixture", "gold_snippets": ["测试日志的保留时间为 30 天"], "reference_answer": "30 天。"}

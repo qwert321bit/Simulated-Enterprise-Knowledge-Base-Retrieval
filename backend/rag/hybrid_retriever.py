@@ -1,9 +1,11 @@
 
 """
-Hybrid Retriever
+Hybrid Retriever + Reranker
+
 1. BGE-M3 + Qdrant 向量检索
 2. BM25 关键词检索
 3. RRF 融合排序
+4. BGE Reranker 重排序
 """
 
 import re
@@ -15,18 +17,18 @@ from rank_bm25 import BM25Okapi
 from loader import load_documents
 from splitter import TextSplitter
 from embedding import EmbeddingModel
+
 from vector_store import QdrantVectorStore
+from reranker import Reranker
 
 
 def tokenize(text: str) -> List[str]:
     """
     中英文混合分词：
-    - 中文使用 jieba
-    - 英文、数字和技术名词使用正则提取
+    中文使用 jieba；
+    英文、数字和技术名词使用正则提取。
     """
-
     text = text.lower()
-
     words = jieba.lcut(text)
 
     tokens = []
@@ -37,11 +39,9 @@ def tokenize(text: str) -> List[str]:
         if not word:
             continue
 
-        # 保留英文、数字、版本号和技术名词
         if re.fullmatch(r"[a-z0-9_.+#/-]+", word):
             tokens.append(word)
 
-        # 保留中文词语
         elif re.search(r"[\u4e00-\u9fff]", word):
             tokens.append(word)
 
@@ -55,11 +55,13 @@ class HybridRetriever:
         chunks,
         embedding_model,
         vector_store,
+        reranker,
         rrf_k: int = 60,
     ):
         self.chunks = chunks
         self.embedding_model = embedding_model
         self.vector_store = vector_store
+        self.reranker = reranker
         self.rrf_k = rrf_k
 
         # 建立 BM25 索引
@@ -76,19 +78,24 @@ class HybridRetriever:
             for chunk in chunks
         }
 
-        print(f"BM25 索引建立成功，共 {len(chunks)} 个 Chunk")
+        print(
+            f"BM25 索引建立成功，共 {len(chunks)} 个 Chunk"
+        )
 
     def retrieve(
         self,
         query: str,
-        top_k: int = 5,
+        top_k: int = 3,
         candidate_k: int = 10,
     ) -> List[Dict[str, Any]]:
 
         if not query or not query.strip():
             raise ValueError("查询内容不能为空")
 
+        # =====================================
         # 1. 向量检索
+        # =====================================
+
         query_vector = self.embedding_model.encode_query(
             query
         )
@@ -98,7 +105,10 @@ class HybridRetriever:
             top_k=candidate_k,
         )
 
-        # 2. BM25 检索
+        # =====================================
+        # 2. BM25 关键词检索
+        # =====================================
+
         query_tokens = tokenize(query)
 
         bm25_scores = self.bm25.get_scores(query_tokens)
@@ -112,12 +122,13 @@ class HybridRetriever:
         bm25_results = [
             self.chunks[i]
             for i in bm25_indices
-            if bm25_scores[i] > 0
         ]
 
-        # 3. RRF 融合
-        fused_scores = {}
+        # =====================================
+        # 3. RRF 融合排序
+        # =====================================
 
+        fused_scores = {}
         details = {}
 
         # 向量检索排名
@@ -133,7 +144,11 @@ class HybridRetriever:
             )
 
             details.setdefault(chunk_id, {})
-            details[chunk_id]["vector_score"] = result["score"]
+
+            details[chunk_id]["vector_score"] = (
+                result["score"]
+            )
+
             details[chunk_id]["vector_rank"] = rank
 
         # BM25 排名
@@ -149,20 +164,24 @@ class HybridRetriever:
             )
 
             details.setdefault(chunk_id, {})
+
             details[chunk_id]["bm25_rank"] = rank
 
-        # 4. 按融合分数排序
+        # 先按照 RRF 分数排序，保留 Top candidate_k
         sorted_results = sorted(
             fused_scores.items(),
             key=lambda item: item[1],
             reverse=True,
-        )[:top_k]
+        )[:candidate_k]
 
-        results = []
+        # =====================================
+        # 4. 构造 Reranker 候选结果
+        # =====================================
+
+        candidates = []
 
         for chunk_id, score in sorted_results:
 
-            # 优先从本地 Chunk 映射获取完整信息
             chunk = self.chunk_map.get(chunk_id)
 
             if chunk is not None:
@@ -170,16 +189,22 @@ class HybridRetriever:
                 metadata = chunk.metadata
 
             else:
-                # 兼容 Qdrant 中存在但本地索引中没有的记录
+                # 兼容 Qdrant 中存在但本地索引没有的记录
                 result = next(
-                    item for item in vector_results
-                    if item["chunk_id"] == chunk_id
+                    (
+                        item for item in vector_results
+                        if item["chunk_id"] == chunk_id
+                    ),
+                    None,
                 )
+
+                if result is None:
+                    continue
 
                 content = result["content"]
                 metadata = result["metadata"]
 
-            results.append({
+            candidates.append({
                 "chunk_id": chunk_id,
                 "content": content,
                 "metadata": metadata,
@@ -187,19 +212,29 @@ class HybridRetriever:
                 "details": details[chunk_id],
             })
 
-        return results
+        # =====================================
+        # 5. Reranker 重排序
+        # =====================================
+
+        reranked_results = self.reranker.rerank(
+            query=query,
+            candidates=candidates,
+            top_k=top_k,
+        )
+
+        return reranked_results
 
 
 if __name__ == "__main__":
 
     print("=" * 50)
-    print("Hybrid Retriever 测试")
+    print("Hybrid Retriever + Reranker 测试")
     print("=" * 50)
 
-    # 加载文档
+    # 1. 加载文档
     documents = load_documents()
 
-    # 切分
+    # 2. 文本切分
     splitter = TextSplitter(
         chunk_size=600,
         chunk_overlap=100,
@@ -209,27 +244,36 @@ if __name__ == "__main__":
 
     print(f"Chunk 数量：{len(chunks)}")
 
-    # 加载 Embedding
+    # 3. 加载 Embedding 模型
     embedding_model = EmbeddingModel(
         model_name="BAAI/bge-m3",
         device="auto",
         batch_size=8,
     )
 
-    # 连接现有 Qdrant 数据库
+    # 4. 加载 Reranker 模型
+    reranker = Reranker(
+        model_name="BAAI/bge-reranker-v2-m3",
+        device="cpu",
+        max_length=512,
+    )
+
+    # 5. 连接 Qdrant
     vector_store = QdrantVectorStore(
         dimension=embedding_model.dimension
     )
 
     try:
-        # 建立混合检索器
+
+        # 6. 建立混合检索器
         retriever = HybridRetriever(
             chunks=chunks,
             embedding_model=embedding_model,
             vector_store=vector_store,
+            reranker=reranker,
         )
 
-        # 测试问题
+        # 7. 测试问题
         queries = [
             "星云科技的研发环境需要安装什么 Python 版本？",
             "PostgreSQL 16 数据库使用什么规范？",
@@ -252,14 +296,37 @@ if __name__ == "__main__":
                 start=1,
             ):
                 print("\n" + "-" * 40)
-                print(f"排名：{index}")
-                print(f"Chunk：{result['chunk_id']}")
-                print(f"RRF 分数：{result['rrf_score']:.6f}")
-                print(f"检索详情：{result['details']}")
-                print(f"标题：{result['metadata'].get('title')}")
-                print(f"内容：\n{result['content'][:300]}")
 
-        print("\nHybrid Retriever 测试完成！")
+                print(f"最终排名：{index}")
+
+                print(f"Chunk：{result['chunk_id']}")
+
+                print(
+                    f"Reranker 分数："
+                    f"{result['rerank_score']:.4f}"
+                )
+
+                print(
+                    f"RRF 分数："
+                    f"{result['rrf_score']:.6f}"
+                )
+
+                print(
+                    f"检索详情：{result['details']}"
+                )
+
+                print(
+                    f"标题："
+                    f"{result['metadata'].get('title')}"
+                )
+
+                print(
+                    f"内容：\n{result['content'][:300]}"
+                )
+
+        print(
+            "\nHybrid Retriever + Reranker 测试完成！"
+        )
 
     finally:
         vector_store.close()
